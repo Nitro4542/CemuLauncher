@@ -8,16 +8,8 @@
         Title="cemu-launcher" Height="200" Width="600"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-
-        <Label x:Name="MainWindowLabel" Grid.Row="0" Grid.Column="0" Margin="8" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
-        <ProgressBar x:Name="MainWindowProgress" Grid.Row="1" Grid.Column="0" Margin="16 8 16 8" Height="24" VerticalAlignment="Top" IsIndeterminate="True"></ProgressBar>
+    <Grid ColumnDefinitions="*" RowDefinitions="* *">
+        <Label x:Name="MainWindowLabel" Grid.Row="0" Grid.Column="0" Margin="8" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <ProgressBar x:Name="MainWindowProgress" Grid.Row="1" Grid.Column="0" Margin="16 8 16 8" Height="24" VerticalAlignment="Top" IsIndeterminate="True"/>
     </Grid>
 </Window>

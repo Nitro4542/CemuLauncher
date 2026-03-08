@@ -1,4 +1,5 @@
-﻿using cemu_launcher.Updates;
+﻿using cemu_launcher.Data;
+using cemu_launcher.Updates;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
