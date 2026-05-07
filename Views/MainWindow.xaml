@@ -1,15 +1,16 @@
-﻿<Window x:Class="cemu_launcher.UI.MainWindow"
+﻿<Window x:Class="cemu_launcher.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:cemu_launcher.UI"
+        xmlns:local="clr-namespace:cemu_launcher.Views"
         mc:Ignorable="d"
+        Loaded="OnWindowLoaded"
         Title="cemu-launcher" Height="200" Width="600"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None">
     <Grid ColumnDefinitions="*" RowDefinitions="* *">
-        <Label x:Name="MainWindowLabel" Grid.Row="0" Grid.Column="0" Margin="8" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-        <ProgressBar x:Name="MainWindowProgress" Grid.Row="1" Grid.Column="0" Margin="16 8 16 8" Height="24" VerticalAlignment="Top" IsIndeterminate="True"/>
+        <Label Content="{Binding Status}" Grid.Row="0" Grid.Column="0" Margin="8" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <ProgressBar Value="{Binding ProgressValue}" Grid.Row="1" Grid.Column="0" Margin="16 8 16 8" Height="24" VerticalAlignment="Top" IsIndeterminate="{Binding ProgressIsIndeterminate}" Minimum="0" Maximum="100"/>
     </Grid>
 </Window>

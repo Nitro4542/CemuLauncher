@@ -117,13 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="updateAvailable" xml:space="preserve">
+  <data name="Error_CemuNotFound" xml:space="preserve">
+    <value>The Cemu executable was not found.</value>
+  </data>
+  <data name="Error_UpdateSearch" xml:space="preserve">
+    <value>An error appeared while searching for updates.</value>
+  </data>
+  <data name="UpdateAvailable" xml:space="preserve">
     <value>Update available!</value>
   </data>
-  <data name="updateCheck" xml:space="preserve">
+  <data name="UpdateCheck" xml:space="preserve">
     <value>Checking for updates...</value>
   </data>
-  <data name="updatePrompt" xml:space="preserve">
+  <data name="UpdatePrompt" xml:space="preserve">
     <value>Would you like to update Cemu?</value>
   </data>
 </root>

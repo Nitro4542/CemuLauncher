@@ -10,12 +10,13 @@
     <Platforms>ARM64;x64</Platforms>
     <OutputPath>$(SolutionDir)/bin/$(Configuration)/$(Platform)/</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <Version>0.3.0</Version>
+    <Version>0.4.0</Version>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="YamlDotNet" Version="16.3.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="YamlDotNet" Version="17.1.0" />
   </ItemGroup>
 
   <ItemGroup>

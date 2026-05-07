@@ -61,29 +61,47 @@ namespace cemu_launcher.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The Cemu executable was not found. ähnelt.
+        /// </summary>
+        internal static string Error_CemuNotFound {
+            get {
+                return ResourceManager.GetString("Error_CemuNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die An error appeared while searching for updates. ähnelt.
+        /// </summary>
+        internal static string Error_UpdateSearch {
+            get {
+                return ResourceManager.GetString("Error_UpdateSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Update available! ähnelt.
         /// </summary>
-        internal static string updateAvailable {
+        internal static string UpdateAvailable {
             get {
-                return ResourceManager.GetString("updateAvailable", resourceCulture);
+                return ResourceManager.GetString("UpdateAvailable", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Checking for updates... ähnelt.
         /// </summary>
-        internal static string updateCheck {
+        internal static string UpdateCheck {
             get {
-                return ResourceManager.GetString("updateCheck", resourceCulture);
+                return ResourceManager.GetString("UpdateCheck", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Would you like to update Cemu? ähnelt.
         /// </summary>
-        internal static string updatePrompt {
+        internal static string UpdatePrompt {
             get {
-                return ResourceManager.GetString("updatePrompt", resourceCulture);
+                return ResourceManager.GetString("UpdatePrompt", resourceCulture);
             }
         }
     }
