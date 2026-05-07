@@ -13,7 +13,7 @@ namespace cemu_launcher.Data
                 string yml = File.ReadAllText("config.yml");
 
                 var deserializer = new DeserializerBuilder()
-                    .WithNamingConvention(UnderscoredNamingConvention.Instance)
+                    .WithNamingConvention(CamelCaseNamingConvention.Instance)
                     .Build();
 
                 return deserializer.Deserialize<Config>(yml);

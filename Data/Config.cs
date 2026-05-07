@@ -2,9 +2,9 @@
 {
     public class Config
     {
-        public bool ask_before_update { get; set; } = false;
-        public string cemu_path { get; set; } = "cemu";
-        public bool cemu_portable { get; set; } = true;
-        public string download_path { get; set; } = "downloads";
+        public bool UpdatePrompt { get; set; } = false;
+        public string CemuPath { get; set; } = "cemu";
+        public bool Portable { get; set; } = true;
+        public string DownloadPath { get; set; } = "downloads";
     }
 }

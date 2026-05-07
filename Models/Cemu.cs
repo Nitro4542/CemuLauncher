@@ -18,11 +18,11 @@ namespace cemu_launcher.Models
         private const string VersionFileName = "version.txt";
         private const string ZipFileName = "cemu-bin-windows-x64.zip";
 
-        public string CemuPath = config.cemu_path;
+        public string CemuPath = config.CemuPath;
         private string ExecutablePath =>
             Path.Combine(CemuPath, "Cemu.exe");
         private string DownloadPath =>
-            Path.Combine(CemuPath, config.download_path);
+            Path.Combine(CemuPath, config.DownloadPath);
         private string ZipFilePath =>
             Path.Combine(DownloadPath, ZipFileName);
         private string VersionFilePath =>
@@ -64,7 +64,7 @@ namespace cemu_launcher.Models
         {
             var update = newVersion != Version;
 
-            if (update && config.ask_before_update)
+            if (update && config.UpdatePrompt)
                 update = PromptUpdate();
 
             return update;
@@ -97,7 +97,7 @@ namespace cemu_launcher.Models
 
         private void ApplyOptions()
         {
-            if (config.cemu_portable)
+            if (config.Portable)
                 Directory.CreateDirectory(Path.Combine(CemuPath, "portable"));
         }
 
