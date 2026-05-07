@@ -1,0 +1,45 @@
+name: Build (Windows x64)
+
+on: push
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    env:
+      PUBLISH_DIR: publish
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 10.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Publish
+      run: dotnet publish --configuration Release --runtime win-x64 --output ${{ env.PUBLISH_DIR }}
+
+    - name: Upload binaries
+      uses: actions/upload-artifact@v4
+      with:
+        name: CemuLauncher-x64
+        path: ${{ env.PUBLISH_DIR }}/
+
+    - name: Compile installer
+      uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
+      with:
+        path: Installer/Installer.iss
+
+    - name: Upload installer
+      uses: actions/upload-artifact@v4
+      with:
+        name: CemuLauncher-x64-Installer
+        path: Installer/Output/CemuLauncher-x64-Setup.exe
