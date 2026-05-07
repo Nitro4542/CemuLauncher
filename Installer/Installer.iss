@@ -1,5 +1,5 @@
 #define MyAppName "Cemu Launcher"
-#define MyAppVersion "0.4"
+#define MyAppVersion "0.4.0"
 #define MyAppPublisher "Nitro4542"
 #define MyAppURL "https://github.com/Nitro4542/CemuLauncher
 #define MyAppExeName "CemuLauncher.exe"
@@ -7,6 +7,7 @@
 [Setup]
 AppId={{7BFD2086-97C0-4DAD-A4E5-1539A26DF821}
 AppName={#MyAppName}
+AppVerName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
