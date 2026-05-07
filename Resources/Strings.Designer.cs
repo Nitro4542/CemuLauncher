@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace cemu_launcher.Resources {
+namespace CemuLauncher.Resources {
     using System;
-    
-    
+
+
     /// <summary>
     ///   Eine stark typisierte Ressourcenklasse zum Suchen von lokalisierten Zeichenfolgen usw.
     /// </summary>
@@ -23,15 +23,15 @@ namespace cemu_launcher.Resources {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Strings {
-        
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Strings() {
         }
-        
+
         /// <summary>
         ///   Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
         /// </summary>
@@ -39,13 +39,13 @@ namespace cemu_launcher.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("cemu_launcher.Resources.Strings", typeof(Strings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CemuLauncher.Resources.Strings", typeof(Strings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Überschreibt die CurrentUICulture-Eigenschaft des aktuellen Threads für alle
         ///   Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
@@ -59,7 +59,7 @@ namespace cemu_launcher.Resources {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die The Cemu executable was not found. ähnelt.
         /// </summary>
@@ -68,7 +68,7 @@ namespace cemu_launcher.Resources {
                 return ResourceManager.GetString("Error_CemuNotFound", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die An error appeared while searching for updates. ähnelt.
         /// </summary>
@@ -77,7 +77,7 @@ namespace cemu_launcher.Resources {
                 return ResourceManager.GetString("Error_UpdateSearch", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Update available! ähnelt.
         /// </summary>
@@ -86,7 +86,7 @@ namespace cemu_launcher.Resources {
                 return ResourceManager.GetString("UpdateAvailable", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Checking for updates... ähnelt.
         /// </summary>
@@ -95,7 +95,7 @@ namespace cemu_launcher.Resources {
                 return ResourceManager.GetString("UpdateCheck", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Would you like to update Cemu? ähnelt.
         /// </summary>

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace cemu_launcher
+namespace CemuLauncher
 {
     public partial class App : Application
     {

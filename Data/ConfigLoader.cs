@@ -2,7 +2,7 @@
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-namespace cemu_launcher.Data
+namespace CemuLauncher.Data
 {
     public static class ConfigLoader
     {

@@ -1,4 +1,4 @@
-﻿namespace cemu_launcher.Data
+﻿namespace CemuLauncher.Data
 {
     public class Config
     {

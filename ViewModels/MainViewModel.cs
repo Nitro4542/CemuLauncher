@@ -1,14 +1,14 @@
-﻿using cemu_launcher.Data;
-using cemu_launcher.Helpers;
-using cemu_launcher.Models;
-using cemu_launcher.Resources;
+﻿using CemuLauncher.Data;
+using CemuLauncher.Helpers;
+using CemuLauncher.Models;
+using CemuLauncher.Resources;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Windows;
 
-namespace cemu_launcher.ViewModels
+namespace CemuLauncher.ViewModels
 {
     public partial class MainViewModel : ObservableObject
     {
@@ -34,7 +34,7 @@ namespace cemu_launcher.ViewModels
         public MainViewModel()
         {
             _httpClient = new HttpClient();
-            _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("cemu-launcher",
+            _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("CemuLauncher",
                 Assembly.GetExecutingAssembly().GetName().Version?.ToString()));
 
             _downloader = new Downloader(_httpClient);

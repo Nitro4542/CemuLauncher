@@ -1,12 +1,12 @@
-﻿using cemu_launcher.Data;
-using cemu_launcher.Helpers;
-using cemu_launcher.Resources;
+﻿using CemuLauncher.Data;
+using CemuLauncher.Helpers;
+using CemuLauncher.Resources;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Windows;
 
-namespace cemu_launcher.Models
+namespace CemuLauncher.Models
 {
     public sealed class Cemu(Config config, Downloader downloader)
     {

@@ -1,7 +1,7 @@
-﻿<Application x:Class="cemu_launcher.App"
+﻿<Application x:Class="CemuLauncher.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:cemu_launcher"
+             xmlns:local="clr-namespace:CemuLauncher"
              StartupUri="Views/MainWindow.xaml"
              ThemeMode="System">
     <Application.Resources>

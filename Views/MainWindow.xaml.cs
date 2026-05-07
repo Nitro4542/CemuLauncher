@@ -1,7 +1,7 @@
-﻿using cemu_launcher.ViewModels;
+﻿using CemuLauncher.ViewModels;
 using System.Windows;
 
-namespace cemu_launcher.Views
+namespace CemuLauncher.Views
 {
     public partial class MainWindow : Window
     {

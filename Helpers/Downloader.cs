@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Net.Http;
 
-namespace cemu_launcher.Helpers
+namespace CemuLauncher.Helpers
 {
     public sealed class Downloader(HttpClient httpClient)
     {
