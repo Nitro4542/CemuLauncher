@@ -1,49 +1,62 @@
+<div align="center">
+
 # CemuLauncher
+
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/Nitro4542/CemuLauncher/total?logo=github&label=Downloads)
+![GitHub License](https://img.shields.io/github/license/Nitro4542/CemuLauncher?logo=github&label=License)
+![GitHub Release](https://img.shields.io/github/v/release/Nitro4542/CemuLauncher?logo=github&label=Release)
 
 Automatically installs and updates nightly builds of the Cemu emulator.
 
-## Installation
+</div>
+
+## :cd: Installation
 
 Install the [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/10.0).
 
-Download the latest version from the [releases page](https://codeberg.org/Niitroo/CemuLauncher/releases) and install it.
+Download the latest version from the [releases page](https://github.com/Nitro4542/CemuLauncher/releases) and install it.
 
-Alternatively, you can download it without an installer from the same page if you'd like.
+Alternatively, you can download a portable from the same page if you'd like.
 
 <details>
-<summary>Feel free to also compile it by yourself!</summary>
+<summary>Click here for instructions on how to compile it by yourself.</summary>
 
-### Compile it yourself
+### :computer: Compile from source
 
 1. Install the [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0).
 
 2. Clone this repository and navigate into it:
 
     ```bash
-    git clone https://codeberg.org/Niitroo/CemuLauncher.git
+    git clone https://github.com/Nitro4542/CemuLauncher.git
     cd CemuLauncher
     ```
 
-3. Run the command according to your architecture to start compiling:
+3. Run the following command to start compiling:
 
     ```bash
     dotnet publish -c Release -r win-x64
     ```
 
-    ```bash
-    dotnet publish -c Release -r win-arm64
-    ```
-
 </details>
 
-## Usage
+## :bulb: Usage
 
 Instead of running Cemu, run CemuLauncher. It will automatically check for updates and install them.
 
 It will create a portable installation of Cemu, so make sure to copy your data to it.
 
-## License
+### :hammer_and_wrench: Configuration
 
-This project is licensed under the [MIT license](LICENSE).
+> ![IMPORTANT]
+> The configuration file is not included by default. You can download it [here](http://github.com/Nitro4542/CemuLauncher/blob/main/config.yml).
+
+After installing CemuLauncher, you can configure it using its configuration file located under `%AppData%\CemuLauncher\config.yml`.
+
+The config file should be self-explanatory.
+
+## :scroll: License
+
+This project is licensed under the [MIT License](LICENSE).
 
 This project is not affiliated with Cemu or any other project.
