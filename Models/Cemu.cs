@@ -13,8 +13,6 @@ public sealed class Cemu {
     private const string DownloadUrl =
         "https://nightly.link/cemu-project/Cemu/workflows/build_check/main/cemu-bin-windows-x64.zip";
 
-
-
     private const string VersionFileName = "version.txt";
     private const string ZipFileName = "cemu-bin-windows-x64.zip";
 
