@@ -2,9 +2,9 @@
 
 # CemuLauncher
 
-![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/Nitro4542/CemuLauncher/total?logo=github&label=Downloads)
-![GitHub License](https://img.shields.io/github/license/Nitro4542/CemuLauncher?logo=github&label=License)
-![GitHub Release](https://img.shields.io/github/v/release/Nitro4542/CemuLauncher?logo=github&label=Release)
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/nxtroox/CemuLauncher/total?logo=github&label=Downloads)
+![GitHub License](https://img.shields.io/github/license/nxtroox/CemuLauncher?logo=github&label=License)
+![GitHub Release](https://img.shields.io/github/v/release/nxtroox/CemuLauncher?logo=github&label=Release)
 
 Automatically installs and updates nightly builds of the Cemu emulator.
 
@@ -14,7 +14,7 @@ Automatically installs and updates nightly builds of the Cemu emulator.
 
 Install the [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/10.0).
 
-Download the latest version from the [releases page](https://github.com/Nitro4542/CemuLauncher/releases) and install it.
+Download the latest version from the [releases page](https://github.com/nxtroox/CemuLauncher/releases) and install it.
 
 Alternatively, you can download a portable from the same page if you'd like.
 
@@ -28,7 +28,7 @@ Alternatively, you can download a portable from the same page if you'd like.
 2. Clone this repository and navigate into it:
 
     ```bash
-    git clone https://github.com/Nitro4542/CemuLauncher.git
+    git clone https://github.com/nxtroox/CemuLauncher.git
     cd CemuLauncher
     ```
 
@@ -49,7 +49,7 @@ It will create a portable installation of Cemu, so make sure to copy your data t
 ### :hammer_and_wrench: Configuration
 
 > ![IMPORTANT]
-> The configuration file is not included by default. You can download it [here](http://github.com/Nitro4542/CemuLauncher/blob/main/config.yml).
+> The configuration file is not included by default. You can download it [here](http://github.com/nxtroox/CemuLauncher/blob/main/config.yml).
 
 After installing CemuLauncher, you can configure it using its configuration file located under `%AppData%\CemuLauncher\config.yml`.
 
