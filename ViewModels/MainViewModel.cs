@@ -1,19 +1,13 @@
 ﻿using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Reflection;
 using System.Windows;
 using CemuLauncher.Helpers;
 using CemuLauncher.Models;
 using CemuLauncher.Resources;
 using CommunityToolkit.Mvvm.ComponentModel;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 namespace CemuLauncher.ViewModels;
 
 public partial class MainViewModel : ObservableObject {
-    public Cemu? Cemu { get; set; }
-
     [ObservableProperty]
     private string? status;
 
@@ -25,25 +19,12 @@ public partial class MainViewModel : ObservableObject {
 
     public IProgress<double> Progress { get; }
 
-    private Config? _config;
-
-    private readonly ConfigLoader _configLoader;
+    private readonly Cemu _cemu;
     private readonly HttpClient _httpClient;
-    private readonly Downloader _downloader;
-    private readonly IDeserializer _deserializer = new DeserializerBuilder()
-        .WithNamingConvention(CamelCaseNamingConvention.Instance)
-        .Build();
 
-    private readonly Task _initTask;
-
-    public MainViewModel() {
-        _httpClient = new HttpClient();
-        _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("CemuLauncher",
-            Assembly.GetExecutingAssembly().GetName().Version?.ToString()));
-
-        _downloader = new Downloader(_httpClient);
-
-        _configLoader = new ConfigLoader(_deserializer);
+    public MainViewModel(Cemu cemu, IHttpClientFactory httpClientFactory) {
+        _cemu = cemu;
+        _httpClient = httpClientFactory.CreateClient("Default");
 
         Status = Strings.UpdateCheck;
 
@@ -56,26 +37,22 @@ public partial class MainViewModel : ObservableObject {
                 ProgressValue = p;
             }
         });
-
-        _initTask = InitializeAsync();
     }
 
-    public async Task OnWindowLoaded() {
-        await _initTask;
+    public async Task OnWindowLoadedAsync() {
+        try {
+            await _cemu.SetLocalVersionAsync();
 
-        var newVersion = await CemuManager.GetLatestCommitAsync(_httpClient)
-            ?? throw new ArgumentNullException(Strings.UpdateCheck);
+            var newVersion = await CemuManager.GetLatestCommitAsync(_httpClient);
 
-        if (Cemu!.DoUpdate(newVersion))
-            await Cemu.InstallAsync(newVersion, Progress);
+            if (_cemu.CheckUpdate(newVersion))
+                await _cemu.InstallAsync(newVersion, Progress);
 
-        Cemu.Launch();
+            _cemu.Launch();
 
-        Application.Current.Shutdown();
-    }
-
-    private async Task InitializeAsync() {
-        _config = await _configLoader.LoadConfigAsync();
-        Cemu = await CemuManager.GetLocalCemuAsync(_config, _downloader);
+            Application.Current.Shutdown();
+        } catch (Exception ex) {
+            Status = string.Join(" ", [Strings.ErrorPrefix, ex.Message]);
+        }
     }
 }

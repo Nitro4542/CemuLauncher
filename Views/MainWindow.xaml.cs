@@ -4,12 +4,10 @@ using CemuLauncher.ViewModels;
 namespace CemuLauncher.Views;
 
 public partial class MainWindow : Window {
-    private MainViewModel ViewModel { get; } = new();
-
-    public MainWindow() {
+    public MainWindow(MainViewModel viewModel) {
         InitializeComponent();
-        DataContext = ViewModel;
-    }
+        DataContext = viewModel;
 
-    private async void OnWindowLoaded(object sender, RoutedEventArgs e) => await ViewModel.OnWindowLoaded();
+        _ = viewModel.OnWindowLoadedAsync();
+    }
 }

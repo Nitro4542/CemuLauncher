@@ -10,8 +10,8 @@
 
 namespace CemuLauncher.Resources {
     using System;
-
-
+    
+    
     /// <summary>
     ///   Eine stark typisierte Ressourcenklasse zum Suchen von lokalisierten Zeichenfolgen usw.
     /// </summary>
@@ -23,15 +23,15 @@ namespace CemuLauncher.Resources {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Strings {
-
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Strings() {
         }
-
+        
         /// <summary>
         ///   Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
         /// </summary>
@@ -45,7 +45,7 @@ namespace CemuLauncher.Resources {
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Überschreibt die CurrentUICulture-Eigenschaft des aktuellen Threads für alle
         ///   Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
@@ -59,7 +59,7 @@ namespace CemuLauncher.Resources {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die The Cemu executable was not found. ähnelt.
         /// </summary>
@@ -68,7 +68,7 @@ namespace CemuLauncher.Resources {
                 return ResourceManager.GetString("Error_CemuNotFound", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die An error appeared while searching for updates. ähnelt.
         /// </summary>
@@ -77,7 +77,16 @@ namespace CemuLauncher.Resources {
                 return ResourceManager.GetString("Error_UpdateSearch", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Error: ähnelt.
+        /// </summary>
+        internal static string ErrorPrefix {
+            get {
+                return ResourceManager.GetString("ErrorPrefix", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Update available! ähnelt.
         /// </summary>
@@ -86,7 +95,7 @@ namespace CemuLauncher.Resources {
                 return ResourceManager.GetString("UpdateAvailable", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Checking for updates... ähnelt.
         /// </summary>
@@ -95,7 +104,7 @@ namespace CemuLauncher.Resources {
                 return ResourceManager.GetString("UpdateCheck", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Would you like to update Cemu? ähnelt.
         /// </summary>

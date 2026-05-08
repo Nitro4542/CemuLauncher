@@ -2,29 +2,45 @@
 using System.IO;
 using System.IO.Compression;
 using System.Windows;
-using CemuLauncher.Helpers;
 using CemuLauncher.Resources;
+using CemuLauncher.Services;
 
 namespace CemuLauncher.Models;
 
-public sealed class Cemu(Config config, Downloader downloader) {
+public sealed class Cemu {
     public string? Version { get; set; }
 
     private const string DownloadUrl =
         "https://nightly.link/cemu-project/Cemu/workflows/build_check/main/cemu-bin-windows-x64.zip";
 
+
+
     private const string VersionFileName = "version.txt";
     private const string ZipFileName = "cemu-bin-windows-x64.zip";
 
-    public string CemuPath = config.CemuPath;
+    public string CemuPath =>
+        _config!.CemuPath;
     private string ExecutablePath =>
         Path.Combine(CemuPath, "Cemu.exe");
     private string DownloadPath =>
-        Path.Combine(CemuPath, config.DownloadPath);
+        Path.Combine(CemuPath, _config!.DownloadPath);
     private string ZipFilePath =>
         Path.Combine(DownloadPath, ZipFileName);
     private string VersionFilePath =>
         Path.Combine(CemuPath, VersionFileName);
+
+    private readonly Downloader _downloader;
+    private Config? _config;
+
+    public Cemu(ConfigService configService, Downloader downloader) {
+        _downloader = downloader;
+
+        _ = InitializeAsync(configService);
+    }
+
+    private async Task InitializeAsync(ConfigService configService) {
+        _config = await configService.GetAsync();
+    }
 
     public void Launch(bool passArguments = true) {
         if (!File.Exists(ExecutablePath))
@@ -52,22 +68,22 @@ public sealed class Cemu(Config config, Downloader downloader) {
         } catch { }
     }
 
-    public bool DoUpdate(string newVersion) {
-        var update = newVersion != Version;
+    public bool CheckUpdate(string? newVersion) {
+        var update = Version == null || Version != newVersion;
 
-        if (update && config.UpdatePrompt)
+        if (update && _config!.UpdatePrompt)
             update = PromptUpdate();
 
         return update;
     }
 
-    public async Task InstallAsync(string newVersion, IProgress<double>? downloadProgress = null) {
+    public async Task InstallAsync(string? newVersion, IProgress<double>? downloadProgress = null) {
         Version = newVersion;
 
         Directory.CreateDirectory(CemuPath);
         Directory.CreateDirectory(DownloadPath);
 
-        await downloader.DownloadAsync(
+        await _downloader.DownloadAsync(
             DownloadUrl, DownloadPath, ZipFileName, downloadProgress);
 
         await UnpackAsync();
@@ -85,7 +101,7 @@ public sealed class Cemu(Config config, Downloader downloader) {
     }
 
     private void ApplyOptions() {
-        if (config.Portable)
+        if (_config!.Portable)
             Directory.CreateDirectory(Path.Combine(CemuPath, "portable"));
     }
 

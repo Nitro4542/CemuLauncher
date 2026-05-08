@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Net.Http;
 
-namespace CemuLauncher.Helpers;
+namespace CemuLauncher.Services;
 
 public sealed class Downloader(HttpClient httpClient) {
     public async Task DownloadAsync(string url, string downloadPath, string fileName, IProgress<double>? progress, CancellationToken cancellationToken = default) {
