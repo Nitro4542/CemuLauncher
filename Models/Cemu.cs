@@ -16,16 +16,22 @@ public sealed class Cemu {
     private const string VersionFileName = "version.txt";
     private const string ZipFileName = "cemu-bin-windows-x64.zip";
 
-    public string CemuPath =>
-        _config!.CemuPath;
+    private string BasePath { get; } = Path.Combine(Environment.GetFolderPath(
+        Environment.SpecialFolder.ApplicationData), "CemuLauncher");
+    private string CemuPath =>
+        Path.IsPathRooted(_config!.CemuPath)
+            ? _config!.CemuPath
+            : Path.Combine(BasePath, _config!.CemuPath);
     private string ExecutablePath =>
         Path.Combine(CemuPath, "Cemu.exe");
     private string DownloadPath =>
-        Path.Combine(CemuPath, _config!.DownloadPath);
+        Path.IsPathRooted(_config!.DownloadPath)
+            ? _config!.DownloadPath
+            : Path.Combine(BasePath, _config!.DownloadPath);
     private string ZipFilePath =>
         Path.Combine(DownloadPath, ZipFileName);
     private string VersionFilePath =>
-        Path.Combine(CemuPath, VersionFileName);
+        Path.Combine(BasePath, VersionFileName);
 
     private readonly Downloader _downloader;
     private Config? _config;
@@ -78,6 +84,7 @@ public sealed class Cemu {
     public async Task InstallAsync(string? newVersion, IProgress<double>? downloadProgress = null) {
         Version = newVersion;
 
+        Directory.CreateDirectory(BasePath);
         Directory.CreateDirectory(CemuPath);
         Directory.CreateDirectory(DownloadPath);
 
