@@ -1,9 +1,7 @@
 ﻿using System.Windows;
 
-namespace CemuLauncher
-{
-    public partial class App : Application
-    {
+namespace CemuLauncher {
+    public partial class App : Application {
     }
 
 }

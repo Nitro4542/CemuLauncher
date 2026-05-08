@@ -1,18 +1,15 @@
-﻿using CemuLauncher.ViewModels;
-using System.Windows;
+﻿using System.Windows;
+using CemuLauncher.ViewModels;
 
-namespace CemuLauncher.Views
-{
-    public partial class MainWindow : Window
-    {
-        private MainViewModel ViewModel { get; } = new();
+namespace CemuLauncher.Views;
 
-        public MainWindow()
-        {
-            InitializeComponent();
-            DataContext = ViewModel;
-        }
+public partial class MainWindow : Window {
+    private MainViewModel ViewModel { get; } = new();
 
-        private async void OnWindowLoaded(object sender, RoutedEventArgs e) => await ViewModel.OnWindowLoaded();
+    public MainWindow() {
+        InitializeComponent();
+        DataContext = ViewModel;
     }
+
+    private async void OnWindowLoaded(object sender, RoutedEventArgs e) => await ViewModel.OnWindowLoaded();
 }

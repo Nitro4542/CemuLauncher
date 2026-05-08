@@ -1,52 +1,46 @@
 ﻿using System.IO;
 using System.Net.Http;
 
-namespace CemuLauncher.Helpers
-{
-    public sealed class Downloader(HttpClient httpClient)
-    {
-        public async Task DownloadAsync(string url, string downloadPath, string fileName, IProgress<double>? progress, CancellationToken cancellationToken = default)
-        {
-            var fullPath = Path.Combine(downloadPath, fileName);
+namespace CemuLauncher.Helpers;
 
-            Directory.CreateDirectory(downloadPath);
+public sealed class Downloader(HttpClient httpClient) {
+    public async Task DownloadAsync(string url, string downloadPath, string fileName, IProgress<double>? progress, CancellationToken cancellationToken = default) {
+        var fullPath = Path.Combine(downloadPath, fileName);
 
-            if (File.Exists(fullPath))
-                File.Delete(fullPath);
+        Directory.CreateDirectory(downloadPath);
 
-            using var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
-            response.EnsureSuccessStatusCode();
+        if (File.Exists(fullPath))
+            File.Delete(fullPath);
 
-            var contentLength = response.Content.Headers.ContentLength;
+        using var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+        response.EnsureSuccessStatusCode();
 
-            if (contentLength == null)
-            {
-                progress?.Report(-1);
-            }
+        var contentLength = response.Content.Headers.ContentLength;
 
-            using var downloadStream = await response.Content.ReadAsStreamAsync();
-            using var fileStream = new FileStream(fullPath, FileMode.Create, FileAccess.Write, FileShare.None, 1024 * 1024, useAsync: true);
-
-            var buffer = new byte[81920];
-            long totalRead = 0;
-            int read;
-
-            var lastReport = DateTime.UtcNow;
-
-            while ((read = await downloadStream.ReadAsync(buffer, cancellationToken)) > 0)
-            {
-                await fileStream.WriteAsync(buffer.AsMemory(0, read), cancellationToken);
-                totalRead += read;
-
-                if (contentLength.HasValue && contentLength.Value > 0 && DateTime.UtcNow - lastReport > TimeSpan.FromMilliseconds(250))
-                {
-                    var percent = (double)totalRead / contentLength.Value * 100.0;
-                    progress?.Report(Math.Clamp(percent, 0.0, 100.0));
-                    lastReport = DateTime.UtcNow;
-                }
-            }
-
-            progress?.Report(100);
+        if (contentLength == null) {
+            progress?.Report(-1);
         }
+
+        using var downloadStream = await response.Content.ReadAsStreamAsync();
+        using var fileStream = new FileStream(fullPath, FileMode.Create, FileAccess.Write, FileShare.None, 1024 * 1024, useAsync: true);
+
+        var buffer = new byte[81920];
+        long totalRead = 0;
+        int read;
+
+        var lastReport = DateTime.UtcNow;
+
+        while ((read = await downloadStream.ReadAsync(buffer, cancellationToken)) > 0) {
+            await fileStream.WriteAsync(buffer.AsMemory(0, read), cancellationToken);
+            totalRead += read;
+
+            if (contentLength.HasValue && contentLength.Value > 0 && DateTime.UtcNow - lastReport > TimeSpan.FromMilliseconds(250)) {
+                var percent = (double)totalRead / contentLength.Value * 100.0;
+                progress?.Report(Math.Clamp(percent, 0.0, 100.0));
+                lastReport = DateTime.UtcNow;
+            }
+        }
+
+        progress?.Report(100);
     }
 }

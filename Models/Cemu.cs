@@ -1,119 +1,106 @@
-﻿using CemuLauncher.Helpers;
-using CemuLauncher.Resources;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Windows;
+using CemuLauncher.Helpers;
+using CemuLauncher.Resources;
 
-namespace CemuLauncher.Models
-{
-    public sealed class Cemu(Config config, Downloader downloader)
-    {
-        public string? Version { get; set; }
+namespace CemuLauncher.Models;
 
-        private const string DownloadUrl =
-            "https://nightly.link/cemu-project/Cemu/workflows/build_check/main/cemu-bin-windows-x64.zip";
+public sealed class Cemu(Config config, Downloader downloader) {
+    public string? Version { get; set; }
 
-        private const string VersionFileName = "version.txt";
-        private const string ZipFileName = "cemu-bin-windows-x64.zip";
+    private const string DownloadUrl =
+        "https://nightly.link/cemu-project/Cemu/workflows/build_check/main/cemu-bin-windows-x64.zip";
 
-        public string CemuPath = config.CemuPath;
-        private string ExecutablePath =>
-            Path.Combine(CemuPath, "Cemu.exe");
-        private string DownloadPath =>
-            Path.Combine(CemuPath, config.DownloadPath);
-        private string ZipFilePath =>
-            Path.Combine(DownloadPath, ZipFileName);
-        private string VersionFilePath =>
-            Path.Combine(CemuPath, VersionFileName);
+    private const string VersionFileName = "version.txt";
+    private const string ZipFileName = "cemu-bin-windows-x64.zip";
 
-        public void Launch(bool passArguments = true)
-        {
-            if (!File.Exists(ExecutablePath))
-                throw new FileNotFoundException(Strings.Error_CemuNotFound, ExecutablePath);
+    public string CemuPath = config.CemuPath;
+    private string ExecutablePath =>
+        Path.Combine(CemuPath, "Cemu.exe");
+    private string DownloadPath =>
+        Path.Combine(CemuPath, config.DownloadPath);
+    private string ZipFilePath =>
+        Path.Combine(DownloadPath, ZipFileName);
+    private string VersionFilePath =>
+        Path.Combine(CemuPath, VersionFileName);
 
-            var startInfo = new ProcessStartInfo()
-            {
-                FileName = ExecutablePath,
-                UseShellExecute = true
-            };
+    public void Launch(bool passArguments = true) {
+        if (!File.Exists(ExecutablePath))
+            throw new FileNotFoundException(Strings.Error_CemuNotFound, ExecutablePath);
 
-            if (passArguments)
-            {
-                foreach (var arg in Environment.GetCommandLineArgs().Skip(1))
-                    startInfo.ArgumentList.Add(arg);
-            }
+        var startInfo = new ProcessStartInfo() {
+            FileName = ExecutablePath,
+            UseShellExecute = true
+        };
 
-            Process.Start(startInfo);
+        if (passArguments) {
+            foreach (var arg in Environment.GetCommandLineArgs().Skip(1))
+                startInfo.ArgumentList.Add(arg);
         }
 
-        public async Task SetLocalVersionAsync()
-        {
-            if (!File.Exists(VersionFilePath))
-                return;
+        Process.Start(startInfo);
+    }
 
-            try
-            {
-                Version = await File.ReadAllTextAsync(VersionFilePath);
-            }
-            catch { }
-        }
+    public async Task SetLocalVersionAsync() {
+        if (!File.Exists(VersionFilePath))
+            return;
 
-        public bool DoUpdate(string newVersion)
-        {
-            var update = newVersion != Version;
+        try {
+            Version = await File.ReadAllTextAsync(VersionFilePath);
+        } catch { }
+    }
 
-            if (update && config.UpdatePrompt)
-                update = PromptUpdate();
+    public bool DoUpdate(string newVersion) {
+        var update = newVersion != Version;
 
-            return update;
-        }
+        if (update && config.UpdatePrompt)
+            update = PromptUpdate();
 
-        public async Task InstallAsync(string newVersion, IProgress<double>? downloadProgress = null)
-        {
-            Version = newVersion;
+        return update;
+    }
 
-            Directory.CreateDirectory(CemuPath);
-            Directory.CreateDirectory(DownloadPath);
+    public async Task InstallAsync(string newVersion, IProgress<double>? downloadProgress = null) {
+        Version = newVersion;
 
-            await downloader.DownloadAsync(
-                DownloadUrl, DownloadPath, ZipFileName, downloadProgress);
+        Directory.CreateDirectory(CemuPath);
+        Directory.CreateDirectory(DownloadPath);
 
-            await UnpackAsync();
+        await downloader.DownloadAsync(
+            DownloadUrl, DownloadPath, ZipFileName, downloadProgress);
 
-            ApplyOptions();
+        await UnpackAsync();
 
-            await CleanupAsync();
-        }
+        ApplyOptions();
 
-        private async Task UnpackAsync()
-        {
-            if (File.Exists(ExecutablePath))
-                File.Delete(ExecutablePath);
+        await CleanupAsync();
+    }
 
-            await ZipFile.ExtractToDirectoryAsync(ZipFilePath, CemuPath, overwriteFiles: true);
-        }
+    private async Task UnpackAsync() {
+        if (File.Exists(ExecutablePath))
+            File.Delete(ExecutablePath);
 
-        private void ApplyOptions()
-        {
-            if (config.Portable)
-                Directory.CreateDirectory(Path.Combine(CemuPath, "portable"));
-        }
+        await ZipFile.ExtractToDirectoryAsync(ZipFilePath, CemuPath, overwriteFiles: true);
+    }
 
-        private static bool PromptUpdate() => MessageBox.Show(
-            Strings.UpdatePrompt,
-            Strings.UpdateAvailable,
-            MessageBoxButton.YesNo,
-            MessageBoxImage.Information)
-            == MessageBoxResult.Yes;
+    private void ApplyOptions() {
+        if (config.Portable)
+            Directory.CreateDirectory(Path.Combine(CemuPath, "portable"));
+    }
 
-        private async Task CleanupAsync()
-        {
-            if (File.Exists(ZipFilePath))
-                File.Delete(ZipFilePath);
+    private static bool PromptUpdate() => MessageBox.Show(
+        Strings.UpdatePrompt,
+        Strings.UpdateAvailable,
+        MessageBoxButton.YesNo,
+        MessageBoxImage.Information)
+        == MessageBoxResult.Yes;
 
-            if (Version != null)
-                await File.WriteAllTextAsync(VersionFilePath, Version);
-        }
+    private async Task CleanupAsync() {
+        if (File.Exists(ZipFilePath))
+            File.Delete(ZipFilePath);
+
+        if (Version != null)
+            await File.WriteAllTextAsync(VersionFilePath, Version);
     }
 }

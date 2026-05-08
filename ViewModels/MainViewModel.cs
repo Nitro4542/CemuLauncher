@@ -1,90 +1,81 @@
-﻿using CemuLauncher.Helpers;
-using CemuLauncher.Models;
-using CemuLauncher.Resources;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Windows;
+using CemuLauncher.Helpers;
+using CemuLauncher.Models;
+using CemuLauncher.Resources;
+using CommunityToolkit.Mvvm.ComponentModel;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-namespace CemuLauncher.ViewModels
-{
-    public partial class MainViewModel : ObservableObject
-    {
-        public Cemu? Cemu { get; set; }
+namespace CemuLauncher.ViewModels;
 
-        [ObservableProperty]
-        private string? status;
+public partial class MainViewModel : ObservableObject {
+    public Cemu? Cemu { get; set; }
 
-        [ObservableProperty]
-        private bool progressIsIndeterminate = true;
+    [ObservableProperty]
+    private string? status;
 
-        [ObservableProperty]
-        private double progressValue = -1;
+    [ObservableProperty]
+    private bool progressIsIndeterminate = true;
 
-        public IProgress<double> Progress { get; }
+    [ObservableProperty]
+    private double progressValue = -1;
 
-        private Config? _config;
+    public IProgress<double> Progress { get; }
 
-        private readonly ConfigLoader _configLoader;
-        private readonly HttpClient _httpClient;
-        private readonly Downloader _downloader;
-        private readonly IDeserializer _deserializer = new DeserializerBuilder()
-            .WithNamingConvention(CamelCaseNamingConvention.Instance)
-            .Build();
+    private Config? _config;
 
-        private readonly Task _initTask;
+    private readonly ConfigLoader _configLoader;
+    private readonly HttpClient _httpClient;
+    private readonly Downloader _downloader;
+    private readonly IDeserializer _deserializer = new DeserializerBuilder()
+        .WithNamingConvention(CamelCaseNamingConvention.Instance)
+        .Build();
 
-        public MainViewModel()
-        {
-            _httpClient = new HttpClient();
-            _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("CemuLauncher",
-                Assembly.GetExecutingAssembly().GetName().Version?.ToString()));
+    private readonly Task _initTask;
 
-            _downloader = new Downloader(_httpClient);
+    public MainViewModel() {
+        _httpClient = new HttpClient();
+        _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("CemuLauncher",
+            Assembly.GetExecutingAssembly().GetName().Version?.ToString()));
 
-            _configLoader = new ConfigLoader(_deserializer);
+        _downloader = new Downloader(_httpClient);
 
-            Status = Strings.UpdateCheck;
+        _configLoader = new ConfigLoader(_deserializer);
 
-            Progress = new Progress<double>(p =>
-            {
-                if (p < 0)
-                {
-                    ProgressIsIndeterminate = true;
-                }
-                else
-                {
-                    Status = Strings.UpdateAvailable;
-                    ProgressIsIndeterminate = false;
-                    ProgressValue = p;
-                }
-            });
+        Status = Strings.UpdateCheck;
 
-            _initTask = InitializeAsync();
-        }
+        Progress = new Progress<double>(p => {
+            if (p < 0) {
+                ProgressIsIndeterminate = true;
+            } else {
+                Status = Strings.UpdateAvailable;
+                ProgressIsIndeterminate = false;
+                ProgressValue = p;
+            }
+        });
 
-        public async Task OnWindowLoaded()
-        {
-            await _initTask;
+        _initTask = InitializeAsync();
+    }
 
-            var newVersion = await CemuManager.GetLatestCommitAsync(_httpClient)
-                ?? throw new ArgumentNullException(Strings.UpdateCheck);
+    public async Task OnWindowLoaded() {
+        await _initTask;
 
-            if (Cemu!.DoUpdate(newVersion))
-                await Cemu.InstallAsync(newVersion, Progress);
+        var newVersion = await CemuManager.GetLatestCommitAsync(_httpClient)
+            ?? throw new ArgumentNullException(Strings.UpdateCheck);
 
-            Cemu.Launch();
+        if (Cemu!.DoUpdate(newVersion))
+            await Cemu.InstallAsync(newVersion, Progress);
 
-            Application.Current.Shutdown();
-        }
+        Cemu.Launch();
 
-        private async Task InitializeAsync()
-        {
-            _config = await _configLoader.LoadConfigAsync();
-            Cemu = await CemuManager.GetLocalCemuAsync(_config, _downloader);
-        }
+        Application.Current.Shutdown();
+    }
+
+    private async Task InitializeAsync() {
+        _config = await _configLoader.LoadConfigAsync();
+        Cemu = await CemuManager.GetLocalCemuAsync(_config, _downloader);
     }
 }
