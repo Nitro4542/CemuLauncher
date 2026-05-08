@@ -1,5 +1,4 @@
-﻿using CemuLauncher.Data;
-using CemuLauncher.Helpers;
+﻿using CemuLauncher.Helpers;
 using CemuLauncher.Models;
 using CemuLauncher.Resources;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -7,6 +6,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Windows;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace CemuLauncher.ViewModels
 {
@@ -25,9 +26,14 @@ namespace CemuLauncher.ViewModels
 
         public IProgress<double> Progress { get; }
 
-        private readonly Config _config = ConfigLoader.LoadConfig();
+        private Config? _config;
+
+        private readonly ConfigLoader _configLoader;
         private readonly HttpClient _httpClient;
         private readonly Downloader _downloader;
+        private readonly IDeserializer _deserializer = new DeserializerBuilder()
+            .WithNamingConvention(CamelCaseNamingConvention.Instance)
+            .Build();
 
         private readonly Task _initTask;
 
@@ -38,6 +44,8 @@ namespace CemuLauncher.ViewModels
                 Assembly.GetExecutingAssembly().GetName().Version?.ToString()));
 
             _downloader = new Downloader(_httpClient);
+
+            _configLoader = new ConfigLoader(_deserializer);
 
             Status = Strings.UpdateCheck;
 
@@ -75,6 +83,7 @@ namespace CemuLauncher.ViewModels
 
         private async Task InitializeAsync()
         {
+            _config = await _configLoader.LoadConfigAsync();
             Cemu = await CemuManager.GetLocalCemuAsync(_config, _downloader);
         }
     }

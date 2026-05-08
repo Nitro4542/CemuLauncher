@@ -1,9 +1,8 @@
-﻿using CemuLauncher.Data;
-using CemuLauncher.Helpers;
+﻿using CemuLauncher.Models;
 using System.Net.Http;
 using System.Text.Json;
 
-namespace CemuLauncher.Models
+namespace CemuLauncher.Helpers
 {
     public static class CemuManager
     {

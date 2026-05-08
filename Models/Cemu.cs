@@ -1,5 +1,4 @@
-﻿using CemuLauncher.Data;
-using CemuLauncher.Helpers;
+﻿using CemuLauncher.Helpers;
 using CemuLauncher.Resources;
 using System.Diagnostics;
 using System.IO;
@@ -101,7 +100,7 @@ namespace CemuLauncher.Models
                 Directory.CreateDirectory(Path.Combine(CemuPath, "portable"));
         }
 
-        private bool PromptUpdate() => MessageBox.Show(
+        private static bool PromptUpdate() => MessageBox.Show(
             Strings.UpdatePrompt,
             Strings.UpdateAvailable,
             MessageBoxButton.YesNo,
