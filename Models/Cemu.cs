@@ -106,15 +106,24 @@ public sealed class Cemu {
     }
 
     private void ApplyOptions() {
+        var portablePath = Path.Combine(CemuPath, "portable");
+        var disabledPath = Path.Combine(CemuPath, "portable.disabled");
+
         if (_config!.Portable)
-            Directory.CreateDirectory(Path.Combine(CemuPath, "portable"));
+            if (Path.Exists(disabledPath))
+                Directory.Move(disabledPath, portablePath);
+            else
+                Directory.CreateDirectory(portablePath);
+        else if (Path.Exists(portablePath))
+            Directory.Move(portablePath, disabledPath);
     }
 
-    private static bool PromptUpdate() => MessageBox.Show(
-        Strings.UpdatePrompt,
-        Strings.UpdateAvailable,
-        MessageBoxButton.YesNo,
-        MessageBoxImage.Information)
+    private static bool PromptUpdate() =>
+        MessageBox.Show(
+            Strings.UpdatePrompt,
+            Strings.UpdateAvailable,
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Information)
         == MessageBoxResult.Yes;
 
     private async Task CleanupAsync() {
