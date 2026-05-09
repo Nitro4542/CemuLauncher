@@ -1,10 +1,11 @@
 <div align="center">
+<img src="Assets/Icon.svg" width="192">
 
 # CemuLauncher
 
-![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/nxtroox/CemuLauncher/total?logo=github&label=Downloads)
-![GitHub License](https://img.shields.io/github/license/nxtroox/CemuLauncher?logo=github&label=License)
-![GitHub Release](https://img.shields.io/github/v/release/nxtroox/CemuLauncher?logo=github&label=Release)
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/nxtroox/CemuLauncher/total?logo=github&logoColor=ffd429&label=Downloads&labelColor=191919&color=ffd429)
+![GitHub License](https://img.shields.io/github/license/nxtroox/CemuLauncher?logo=github&logoColor=ffd429&label=License&labelColor=191919&color=ffd429)
+![GitHub Release](https://img.shields.io/github/v/release/nxtroox/CemuLauncher?logo=github&logoColor=ffd429&label=Release&labelColor=191919&color=ffd429)
 
 Automatically installs and updates nightly builds of the Cemu emulator.
 
