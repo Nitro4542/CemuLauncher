@@ -8,10 +8,11 @@ public sealed class ConfigService(IDeserializer deserializer) {
     private Config? _cached;
 
     public async Task<Config> GetAsync() {
-        return _cached ??= await LoadAsync("config.yml");
+        return _cached ??= await LoadAsync(Path.Combine(Environment.GetFolderPath(
+            Environment.SpecialFolder.ApplicationData), "CemuLauncher", "config.yml"));
     }
 
-    private async Task<Config> LoadAsync(string path = "config.yml") {
+    private async Task<Config> LoadAsync(string path) {
         if (!File.Exists(path))
             return new Config();
 
