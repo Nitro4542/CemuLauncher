@@ -26,7 +26,7 @@ jobs:
         run: dotnet publish CemuLauncher.slnx --configuration Release --runtime win-x64 --output ${{ env.PUBLISH_DIR }}
 
       - name: Upload binaries
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: CemuLauncher-x64
           path: ${{ env.PUBLISH_DIR }}/
@@ -37,7 +37,8 @@ jobs:
           path: Installer/Installer.iss
 
       - name: Upload installer
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: CemuLauncher-x64-Installer
           path: Installer/Output/CemuLauncher-x64-Setup.exe
+          archive: false
