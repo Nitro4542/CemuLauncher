@@ -49,10 +49,9 @@ It will create a portable installation of Cemu, so make sure to copy your data t
 
 ### :hammer_and_wrench: Configuration
 
-> [!IMPORTANT]
-> The configuration file is not included by default. You can download it [here](http://github.com/nxtroox/CemuLauncher/blob/main/config.yml).
-
 After installing CemuLauncher, you can configure it using its configuration file located under `%AppData%\CemuLauncher\config.yml`.
+
+This file will be automatically created after you launch CemuLauncher for the first time.
 
 The config file should be self-explanatory.
 
