@@ -46,7 +46,7 @@ public sealed class Cemu {
         _config = await configService.GetAsync();
     }
 
-    public void Launch(bool passArguments = true) {
+    public void Launch() {
         if (!File.Exists(ExecutablePath))
             throw new FileNotFoundException(Strings.Error_CemuNotFound, ExecutablePath);
 
@@ -55,7 +55,7 @@ public sealed class Cemu {
             UseShellExecute = true
         };
 
-        if (passArguments) {
+        if (_config!.PassArguments) {
             foreach (var arg in Environment.GetCommandLineArgs().Skip(1))
                 startInfo.ArgumentList.Add(arg);
         }
