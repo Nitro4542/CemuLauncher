@@ -30,6 +30,11 @@ public partial class App : Application {
                         .WithNamingConvention(CamelCaseNamingConvention.Instance)
                         .Build();
                 });
+                services.AddSingleton(_ => {
+                    return new SerializerBuilder()
+                        .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                        .Build();
+                });
                 services.AddSingleton<ConfigService>();
 
                 services.AddSingleton<Cemu>();
