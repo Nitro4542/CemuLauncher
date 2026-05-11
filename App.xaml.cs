@@ -19,22 +19,24 @@ public partial class App : Application {
         AppHost = Host.CreateDefaultBuilder()
             .ConfigureServices((hostContext, services) => {
                 services.AddHttpClient("Default", client => {
-                    client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("CemuLauncher",
-                        Assembly.GetExecutingAssembly().GetName().Version?.ToString()));
+                    client.DefaultRequestHeaders.UserAgent.Add(
+                        new ProductInfoHeaderValue(
+                            "CemuLauncher",
+                            Assembly.GetExecutingAssembly().GetName().Version?.ToString()
+                        )
+                    );
                 });
 
                 services.AddSingleton<Downloader>();
 
-                services.AddSingleton(_ => {
-                    return new DeserializerBuilder()
-                        .WithNamingConvention(CamelCaseNamingConvention.Instance)
-                        .Build();
-                });
-                services.AddSingleton(_ => {
-                    return new SerializerBuilder()
-                        .WithNamingConvention(CamelCaseNamingConvention.Instance)
-                        .Build();
-                });
+                services.AddSingleton(_ => new DeserializerBuilder()
+                    .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                    .Build());
+
+                services.AddSingleton(_ => new SerializerBuilder()
+                    .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                    .Build());
+
                 services.AddSingleton<ConfigService>();
 
                 services.AddSingleton<Cemu>();
